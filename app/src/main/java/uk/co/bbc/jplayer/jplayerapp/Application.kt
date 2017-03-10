@@ -1,4 +1,4 @@
-package uk.co.bbc.jplayer
+package uk.co.bbc.jplayer.jplayerapp
 
 import android.content.Context
 import android.util.Log
@@ -19,6 +19,6 @@ class Application : android.app.Application() {
     external fun stringFromJNI(): String
 }
 
-fun getApplication(context: Context): Application {
+fun jPlayerApp(context: Context): Application {
     return context.applicationContext as Application
 }
