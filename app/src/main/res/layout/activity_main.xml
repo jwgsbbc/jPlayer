@@ -8,7 +8,7 @@
     tools:context="uk.co.bbc.jplayer.MainActivity">
 
     <uk.co.bbc.jplayer.HomeStreamViewImpl
-        android:id="@+id/homeStream"
+        android:id="@+id/home_stream"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="0dp"
