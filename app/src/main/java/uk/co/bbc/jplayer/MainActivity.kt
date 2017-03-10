@@ -9,16 +9,8 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Example of a call to a native method
         val tv = findViewById(R.id.sample_text) as TextView
-        tv.text = stringFromJNI()
+        tv.text = getApplication(this).stringFromJNI()
     }
-
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-    external fun stringFromJNI(): String
 
 }

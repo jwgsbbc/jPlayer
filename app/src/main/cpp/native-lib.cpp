@@ -1,7 +1,7 @@
 #include <jni.h>
 #include <string>
 
-extern "C" JNIEXPORT jstring JNICALL Java_uk_co_bbc_jplayer_MainActivity_stringFromJNI(JNIEnv* env, jobject /* this */) {
+extern "C" JNIEXPORT jstring JNICALL Java_uk_co_bbc_jplayer_Application_stringFromJNI(JNIEnv* env, jobject /* this */) {
     std::string hello = "Hello from C++";
     return env->NewStringUTF(hello.c_str());
 }
