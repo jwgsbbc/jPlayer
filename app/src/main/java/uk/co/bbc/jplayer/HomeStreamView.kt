@@ -12,9 +12,8 @@ interface HomeStreamView {
         fun loadImage(receiver : ImageReceiver)
     }
 
-    interface Item {
-        val label : String
-        val imageLoader : ImageLoader
+    interface Item : ImageLoader {
+        fun getLabelText() : String
     }
 
     fun updateItems(items : List<Item>)
