@@ -14,12 +14,10 @@ class Application : android.app.Application() {
     }
 
     fun getImage(id: String) : Bitmap? {
-//        val bytes = nativeGetImage(id)
-//        if(bytes.isNotEmpty()) {
-//            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, BitmapFactory.Options())
-//        }
-        val stringFromJNI = NativeBridge.staticStringFromJNI()
-        Log.d("Application", stringFromJNI)
+        val bytes = NativeBridge.getNativeImage(id)
+        if(bytes.isNotEmpty()) {
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, BitmapFactory.Options())
+        }
         return null
     }
 

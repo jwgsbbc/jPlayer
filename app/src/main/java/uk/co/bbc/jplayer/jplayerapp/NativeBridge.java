@@ -7,6 +7,6 @@ public class NativeBridge {
         System.loadLibrary("native-lib");
     }
 
-    public static native String staticStringFromJNI();
+    public static native byte[] getNativeImage(String id);
 }
 
