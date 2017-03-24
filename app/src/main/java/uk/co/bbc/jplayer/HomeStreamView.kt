@@ -4,17 +4,11 @@ import android.graphics.Bitmap
 
 interface HomeStreamView {
 
-    interface ImageReceiver {
-        fun receiveImage(image : Bitmap)
-    }
-
-    interface ImageLoader {
-        fun loadImage(receiver : ImageReceiver)
-    }
-
-    interface Item : ImageLoader {
-        fun getLabelText() : String
+    interface Item {
+        val labelText: String
+        val image: Bitmap?
     }
 
     fun updateItems(items : List<Item>)
+    fun dataChangedForIndex(index: Int)
 }

@@ -1,7 +1,6 @@
 package uk.co.bbc.jplayer
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -15,51 +14,60 @@ import java.util.*
 class HomeStreamViewImpl @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : HomeStreamView, RecyclerView(context, attrs, defStyleAttr) {
 
-    private var items: List<HomeStreamView.Item> = Collections.emptyList()
+    val homeStreamViewAdapter = HomeStreamViewAdapter(context)
 
     init {
         setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context)
+        adapter = homeStreamViewAdapter
+    }
 
-        adapter = object : Adapter<RecyclerView.ViewHolder>() {
-            override fun getItemCount(): Int {
-                return items.size
-            }
+    override fun updateItems(items : List<HomeStreamView.Item>) {
+        homeStreamViewAdapter.updateItems(items)
+    }
 
-            override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-                val layoutInflater = LayoutInflater.from(context)
-                val view = layoutInflater.inflate(R.layout.home_stream_cell, parent, false)
-                return HomeStreamCellViewHolder(view)
-            }
+    override fun dataChangedForIndex(index: Int) {
+        homeStreamViewAdapter.notifyItemChanged(index)
+    }
 
-            override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-                val item = items[position]
-                val vh = holder as HomeStreamCellViewHolder
-                vh.boundPosition = position
-                vh.image.setImageResource(R.drawable.img_place_holder)
-                vh.label.text = item.label
-                item.imageLoader.loadImage(object : HomeStreamView.ImageReceiver {
-                    override fun receiveImage(image: Bitmap) {
-                        if(vh.boundPosition==position) {
-                            vh.image.setImageBitmap(image)
-                        }
-                    }
-                })
-            }
+}
 
-            inner class HomeStreamCellViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-                val image: ImageView = itemView.findViewById(R.id.image) as ImageView
-                val label: TextView = itemView.findViewById(R.id.label) as TextView
-                var boundPosition = -1
+class HomeStreamViewAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var items: List<HomeStreamView.Item> = Collections.emptyList()
+
+    override fun getItemCount(): Int {
+        return items.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(context)
+        val view = layoutInflater.inflate(R.layout.home_stream_cell, parent, false)
+        return HomeStreamCellViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+        val item = items[position]
+        val vh = holder as HomeStreamCellViewHolder
+        vh.boundPosition = position
+        vh.image.setImageResource(R.drawable.img_place_holder)
+        vh.label.text = item.labelText
+        item.image.let {
+            if(vh.boundPosition==position) {
+                vh.image.setImageBitmap(it)
             }
         }
     }
 
+    inner class HomeStreamCellViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = itemView.findViewById(R.id.image) as ImageView
+        val label: TextView = itemView.findViewById(R.id.label) as TextView
+        var boundPosition = -1
+    }
 
-
-    override fun updateItems(items : List<HomeStreamView.Item>) {
+    fun updateItems(items: List<HomeStreamView.Item>) {
         this.items = items
-        adapter.notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
 }
