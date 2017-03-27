@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #import <vector>
+#include "TestNewClass.h"
 
 extern "C" JNIEXPORT jstring JNICALL Java_uk_co_bbc_jplayer_jplayerapp_NativeBridge_staticStringFromJNI(JNIEnv *env, jclass type) {
     std::string hello = "Hello from C++ 1";
@@ -19,7 +20,17 @@ jbyteArray createJavaByteArrayCopy(JNIEnv *env, std::vector<char> &imageBytes) {
 }
 
 std::vector<char> readImageBytes(const char *id) {
-    return std::vector<char>();
+    TestNewClass testNewClass;
+
+
+    
+    char a = testNewClass.getOne();
+
+    auto vector1 = std::vector<char>();
+
+    vector1.push_back(a);
+
+    return vector1;
 }
 
 extern "C" JNIEXPORT jbyteArray JNICALL Java_uk_co_bbc_jplayer_jplayerapp_NativeBridge_getNativeImage(JNIEnv *env, jclass type, jstring id_) {

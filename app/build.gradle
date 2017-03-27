@@ -16,6 +16,9 @@ android {
                 cppFlags "-frtti -fexceptions"
             }
         }
+        ndk {
+            abiFilters 'armeabi'
+        }
     }
     buildTypes {
         release {
@@ -28,6 +31,7 @@ android {
             path "CMakeLists.txt"
         }
     }
+
 }
 
 dependencies {
@@ -40,6 +44,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.android.support:recyclerview-v7:25.2.0'
 }
+
 repositories {
     mavenCentral()
 }
