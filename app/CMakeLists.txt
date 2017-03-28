@@ -24,11 +24,26 @@ add_library( poco-foundation
              SHARED
              IMPORTED )
 
- set_target_properties( poco-foundation
-                        PROPERTIES IMPORTED_LOCATION
-                        /Users/shephj08/dev/jPlayer/app/native-libs/poco/src/${ANDROID_ABI}/libPocoFoundation.a )
+set_target_properties( poco-foundation
+                       PROPERTIES IMPORTED_LOCATION
+                       /Users/shephj08/dev/jPlayer/app/native-libs/poco/src/${ANDROID_ABI}/libPocoFoundation.a )
 
 include_directories( /Users/shephj08/dev/poco-1.7.8/Foundation/include )
+
+
+add_library( poco-net
+             SHARED
+             IMPORTED )
+
+set_target_properties( poco-net
+                       PROPERTIES IMPORTED_LOCATION
+                       /Users/shephj08/dev/jPlayer/app/native-libs/poco/src/${ANDROID_ABI}/libPocoNet.a )
+
+include_directories( /Users/shephj08/dev/poco-1.7.8/Net/include )
+
+
+
+
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -50,9 +65,10 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
                        native-lib
 
+                       poco-net
                        poco-foundation
+
 
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )
-
